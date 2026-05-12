@@ -42,7 +42,7 @@ function unlockToWhatsApp() {
     lock.classList.remove('active');
     lock.style.opacity = '';
     lock.style.transition = '';
-    openChat();
+    openChat(true);
   }, 400);
 }
 
@@ -231,20 +231,25 @@ function handleKey(e) {
   if (e.key === 'Enter') handleSend();
 }
 
-function openChat() {
+function openChat(instant) {
   document.getElementById('screen-list').classList.remove('active');
   document.getElementById('screen-chat').classList.add('active');
 
   if (messagesEl.children.length === 0) {
     addDateChip('Today');
-    setInputEnabled(false);
-    agentStatus.textContent = 'typing...';
-    addTypingIndicator();
-    setTimeout(() => {
-      removeTypingIndicator();
+    if (instant) {
       agentStatus.textContent = 'online';
       showAgentMessage(0);
-    }, 1800);
+    } else {
+      setInputEnabled(false);
+      agentStatus.textContent = 'typing...';
+      addTypingIndicator();
+      setTimeout(() => {
+        removeTypingIndicator();
+        agentStatus.textContent = 'online';
+        showAgentMessage(0);
+      }, 1800);
+    }
   }
 }
 
