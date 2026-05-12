@@ -42,7 +42,7 @@ function unlockToWhatsApp() {
     lock.classList.remove('active');
     lock.style.opacity = '';
     lock.style.transition = '';
-    document.getElementById('screen-list').classList.add('active');
+    openChat();
   }, 400);
 }
 
