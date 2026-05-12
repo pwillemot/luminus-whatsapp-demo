@@ -1,5 +1,52 @@
 'use strict';
 
+/* ── Lock screen ── */
+const DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function updateLockClock() {
+  const d = new Date();
+  const lsTime = document.getElementById('ls-time');
+  const lsDate = document.getElementById('ls-date');
+  if (!lsTime) return;
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  lsTime.textContent = `${hh}:${mm}`;
+  lsDate.textContent = `${DAYS[d.getDay()]} ${d.getDate()}`;
+}
+
+updateLockClock();
+setInterval(updateLockClock, 10000);
+
+let notifShown = false;
+
+function showNotification() {
+  if (notifShown) {
+    // second tap → open WhatsApp
+    unlockToWhatsApp();
+    return;
+  }
+  notifShown = true;
+  const notif = document.getElementById('ls-notification');
+  const notifTime = document.getElementById('ls-notif-time');
+  const d = new Date();
+  notifTime.textContent = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+  notif.classList.add('visible');
+}
+
+function unlockToWhatsApp() {
+  const lock = document.getElementById('screen-lock');
+  lock.style.transition = 'opacity 0.4s ease';
+  lock.style.opacity = '0';
+  setTimeout(() => {
+    lock.classList.remove('active');
+    lock.style.opacity = '';
+    lock.style.transition = '';
+    document.getElementById('screen-list').classList.add('active');
+  }, 400);
+}
+
+
 const SCRIPT = [
   { agent: "Hi there! Welcome to Luminus 👋 My name is Sarah, your personal Luminus Energy Assistant. I am happy to help you find the right energy solution. Before we get started — what is your first name?", capture: 'firstName' },
   { agent: "Nice to meet you, {name}! 😊 How can I help you today?" },
