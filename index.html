@@ -14,9 +14,39 @@
 <!-- ═══════════════════════════ LOCK SCREEN ═══════════════════════════ -->
 <div id="screen-lock" class="screen active" onclick="showNotification()">
 
+  <!-- wallpaper -->
   <div class="ls-bg"></div>
 
-  <!-- live clock — covers the static time baked into the photo -->
+  <!-- Dynamic Island -->
+  <div class="ls-dynamic-island"></div>
+
+  <!-- status bar -->
+  <div class="ls-statusbar">
+    <span class="ls-carrier">Telenet</span>
+    <div class="ls-status-right">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="white">
+        <rect x="0"   y="5"  width="3" height="6" rx="0.6" opacity="0.4"/>
+        <rect x="4.5" y="3"  width="3" height="8" rx="0.6" opacity="0.6"/>
+        <rect x="9"   y="1"  width="3" height="10" rx="0.6" opacity="0.8"/>
+        <rect x="13.5" y="0" width="3" height="11" rx="0.6"/>
+      </svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="white">
+        <path d="M8 9.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+        <path d="M4 6.8C5.2 5.6 6.5 5 8 5s2.8.6 4 1.8" stroke="white" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        <path d="M1.2 4C3.1 2.1 5.4 1 8 1s4.9 1.1 6.8 3" stroke="white" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="ls-battery-wrap">
+        <svg width="27" height="13" viewBox="0 0 27 13" fill="none">
+          <rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke="white" stroke-opacity="0.35"/>
+          <rect x="1.5" y="1.5" width="14" height="10" rx="2.5" fill="white"/>
+          <path d="M25 4.5v4" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+        </svg>
+        <span class="ls-batt-pct">59</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- clock -->
   <div class="ls-clock-area">
     <div class="ls-date" id="ls-date"></div>
     <div class="ls-time" id="ls-time"></div>
@@ -26,13 +56,30 @@
   <div class="ls-notification" id="ls-notification">
     <div class="ls-notif-header">
       <div class="ls-notif-app-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
       </div>
       <span class="ls-notif-app-name">WhatsApp</span>
       <span class="ls-notif-time" id="ls-notif-time"></span>
     </div>
     <div class="ls-notif-sender">Sarah - Luminus ⚡</div>
     <div class="ls-notif-body">Hi! Your appointment with our EV specialist is confirmed for tomorrow at 10:00. See you soon! ⚡</div>
+  </div>
+
+  <!-- bottom row -->
+  <div class="ls-bottom">
+    <div class="ls-bottom-btn">
+      <div class="ls-bottom-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M12 2v8m0 4v8M4.93 4.93l5.66 5.66m2.82 2.82 5.66 5.66M2 12h8m4 0h8M4.93 19.07l5.66-5.66m2.82-2.82 5.66-5.66"/></svg>
+      </div>
+      <span class="ls-bottom-label">Torch</span>
+    </div>
+    <div class="ls-swipe-hint">Swipe up to open</div>
+    <div class="ls-bottom-btn">
+      <div class="ls-bottom-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
+      <span class="ls-bottom-label">Camera</span>
+    </div>
   </div>
 
 </div>
