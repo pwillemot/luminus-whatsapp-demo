@@ -14,14 +14,7 @@
 #screen-lock { cursor: pointer; }
 
 .ls-clock-area {
-  position: absolute;
-  z-index: 2;
-  top: 13%;
-  left: 0; right: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  pointer-events: none;
+  display: none;
 }
 .ls-date {
   font-size: 20px;
