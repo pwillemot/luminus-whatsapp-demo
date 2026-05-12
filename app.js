@@ -52,19 +52,65 @@ const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'
 const SLOT_NUMS   = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'];
 const SLOT_TIMES  = ['09:00–12:00','13:00–17:00'];
 
-function buildSlotMessage(skipWeekdays, count) {
+/* Gaussian Easter algorithm — returns [month (1-based), day] for a given year */
+function easterDate(year) {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day   = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(year, month - 1, day);
+}
+
+function belgianHolidays(year) {
+  const easter = easterDate(year);
+  const add = (base, days) => new Date(base.getFullYear(), base.getMonth(), base.getDate() + days);
+  const fixed = (m, d) => new Date(year, m - 1, d);
+  return [
+    fixed(1, 1),              // New Year
+    add(easter, 1),           // Easter Monday
+    fixed(5, 1),              // Labour Day
+    add(easter, 39),          // Ascension
+    add(easter, 50),          // Whit Monday
+    fixed(7, 21),             // Belgian National Day
+    fixed(8, 15),             // Assumption
+    fixed(11, 1),             // All Saints
+    fixed(11, 11),            // Armistice
+    fixed(12, 25),            // Christmas
+  ].map(d => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`);
+}
+
+function isHoliday(d) {
+  const key = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  return belgianHolidays(d.getFullYear()).includes(key);
+}
+
+function isWorkday(d) {
+  return d.getDay() > 0 && d.getDay() < 6 && !isHoliday(d);
+}
+
+function buildSlotMessage(skipWorkdays, count) {
   const d = new Date();
   d.setHours(0, 0, 0, 0);
   let skipped = 0;
-  while (skipped < skipWeekdays) {
+  while (skipped < skipWorkdays) {
     d.setDate(d.getDate() + 1);
-    if (d.getDay() > 0 && d.getDay() < 6) skipped++;
+    if (isWorkday(d)) skipped++;
   }
   const lines = [];
   let collected = 0;
   while (collected < count) {
     d.setDate(d.getDate() + 1);
-    if (d.getDay() > 0 && d.getDay() < 6) {
+    if (isWorkday(d)) {
       const label = `${DAY_NAMES[d.getDay()]} ${d.getDate()} ${MONTH_NAMES[d.getMonth()]}`;
       lines.push(`${SLOT_NUMS[collected]} *${label}* — ${SLOT_TIMES[collected % 2]}`);
       collected++;
