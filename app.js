@@ -47,12 +47,38 @@ function unlockToWhatsApp() {
 }
 
 
+const DAY_NAMES   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const SLOT_NUMS   = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'];
+const SLOT_TIMES  = ['09:00–12:00','13:00–17:00'];
+
+function buildSlotMessage(skipWeekdays, count) {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  let skipped = 0;
+  while (skipped < skipWeekdays) {
+    d.setDate(d.getDate() + 1);
+    if (d.getDay() > 0 && d.getDay() < 6) skipped++;
+  }
+  const lines = [];
+  let collected = 0;
+  while (collected < count) {
+    d.setDate(d.getDate() + 1);
+    if (d.getDay() > 0 && d.getDay() < 6) {
+      const label = `${DAY_NAMES[d.getDay()]} ${d.getDate()} ${MONTH_NAMES[d.getMonth()]}`;
+      lines.push(`${SLOT_NUMS[collected]} *${label}* — ${SLOT_TIMES[collected % 2]}`);
+      collected++;
+    }
+  }
+  return lines.join('\n');
+}
+
 const SCRIPT = [
   { agent: "Hi Marie! Your appointment with our EV specialist is planned for tomorrow at 10:00. If this appointment is not possible anymore you can easily reschedule this in this conversation."},
   { agent: "No worries at all, Marie! 😊 We'll get you sorted. Let me check the available time slots for your EV charger installation…", autoNext: true },
-  { agent: "Great news — I found a few openings! Just reply with the number of your preferred slot:\n\n1️⃣ *Thursday 15 May* — 09:00–12:00\n2️⃣ *Thursday 15 May* — 13:00–17:00\n3️⃣ *Friday 16 May* — 09:00–12:00\n4️⃣ *Monday 19 May* — 13:00–17:00\n5️⃣ *Tuesday 20 May* — 09:00–12:00" },
+  { agent: `Great news — I found a few openings! Just reply with the number of your preferred slot:\n\n${buildSlotMessage(0, 5)}` },
   { agent: "No problem at all, Marie! Let me search for more available slots further out…", autoNext: true },
-  { agent: "I found some new openings for the week after! Just reply with the number of your preferred slot:\n\n1️⃣ *Wednesday 21 May* — 09:00–12:00\n2️⃣ *Wednesday 21 May* — 13:00–17:00\n3️⃣ *Thursday 22 May* — 09:00–12:00\n4️⃣ *Friday 23 May* — 13:00–17:00\n5️⃣ *Monday 26 May* — 09:00–12:00" },
+  { agent: `I found some new openings for the following week! Just reply with the number of your preferred slot:\n\n${buildSlotMessage(5, 5)}` },
   { agent: "Perfect choice! 🎉 Your installation is now rescheduled. Our technician will be at your home during the selected time slot. You'll receive a confirmation by email shortly.\n\nIs there anything else I can help you with?" },
   { agent: "We offer a range of smart energy solutions perfect for Brussels residents:\n\n🔋 *EV charging* — charge your electric vehicle at home, fast and smart.\n☀️ *Solar panels* — generate your own clean energy.\n🌡️ *Heat pumps* — efficient heating and cooling.\n\nSince you are interested in EV solutions, {name}, shall I show you our home EV charging packages?" },
   { agent: "Great! ⚡ Here are our three EV charging packages:\n\n1️⃣ *Basic Pack* — From €299\nPortable charging cable · No installation needed\n\n2️⃣ *Comfort Pack* — From €799\nWallbox Pulsar Max · Smart home charging up to 11kW\n\n3️⃣ *Smart Pack* — From €1,199\nWallbox Pulsar Pro · 22kW + solar integration + billing\n\nWhich package interests you most?" },
