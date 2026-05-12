@@ -50,49 +50,6 @@
 
 #screen-lock { cursor: pointer; user-select: none; }
 
-/* Dynamic Island */
-.ls-dynamic-island {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 126px;
-  height: 37px;
-  background: #000;
-  border-radius: 20px;
-  z-index: 10;
-}
-
-/* status bar */
-.ls-statusbar {
-  position: absolute;
-  top: 0;
-  left: 0; right: 0;
-  z-index: 9;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 17px 24px 0;
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
-  pointer-events: none;
-}
-.ls-status-right {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-.ls-battery-wrap {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-.ls-batt-pct {
-  font-size: 13px;
-  font-weight: 600;
-}
-
 /* clock */
 .ls-clock-area {
   position: absolute;
