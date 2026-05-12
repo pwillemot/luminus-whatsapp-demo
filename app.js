@@ -196,7 +196,7 @@ function showAgentMessage(index) {
       removeTypingIndicator();
       agentStatus.textContent = 'online';
       showAgentMessage(scriptIndex);
-    }, 3200);
+    }, 5000);
   } else {
     agentTurn = false;
     setInputEnabled(true);
