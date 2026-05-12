@@ -48,8 +48,8 @@ function unlockToWhatsApp() {
 
 
 const SCRIPT = [
-  { agent: "Hi there! Welcome to Luminus 👋 My name is Sarah, your personal Luminus Energy Assistant. I am happy to help you find the right energy solution. Before we get started — what is your first name?", capture: 'firstName' },
-  { agent: "Nice to meet you, {name}! 😊 How can I help you today?" },
+  { agent: "Hi Marie! Your appointment with our EV specialist is planned for tomorrow at 10:00. If this appointment is not possible anymore you can easily reschedule this in this conversation."},
+  { agent: "I understand, it is not problem to reschedule the appointment. Do you have a specific timing in mind for the appointment or do I need to propose some time slots for next week?" },
   { agent: "I understand, {name}! Unfortunately I have to share some important news. In the Brussels Capital Region, the electricity market is regulated by the regional government 🏛️. This means the electricity supplier is fixed (Sibelga) and residents cannot freely choose their supplier. So Luminus is not able to supply electricity to private homes in Brussels. I am sorry about that! 😔\n\nBut the great news is: Luminus still has excellent solutions for you in Brussels!" },
   { agent: "We offer a range of smart energy solutions perfect for Brussels residents:\n\n🔋 *EV charging* — charge your electric vehicle at home, fast and smart.\n☀️ *Solar panels* — generate your own clean energy.\n🌡️ *Heat pumps* — efficient heating and cooling.\n\nSince you are interested in EV solutions, {name}, shall I show you our home EV charging packages?" },
   { agent: "Great! ⚡ Here are our three EV charging packages:\n\n1️⃣ *Basic Pack* — From €299\nPortable charging cable · No installation needed\n\n2️⃣ *Comfort Pack* — From €799\nWallbox Pulsar Max · Smart home charging up to 11kW\n\n3️⃣ *Smart Pack* — From €1,199\nWallbox Pulsar Pro · 22kW + solar integration + billing\n\nWhich package interests you most?" },
