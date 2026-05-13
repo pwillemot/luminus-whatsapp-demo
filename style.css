@@ -555,7 +555,7 @@ html, body {
 .wa-bubble-row.outgoing { justify-content: flex-end; padding-right: 2px; }
 
 .wa-bubble {
-  max-width: 78%;
+  max-width: 88%;
   padding: 8px 12px 6px;
   border-radius: 18px;
   position: relative;

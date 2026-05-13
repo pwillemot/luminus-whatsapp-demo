@@ -63,7 +63,7 @@ function unlockToWhatsApp() {
 const DAY_NAMES   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const SLOT_NUMS   = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'];
-const SLOT_TIMES  = ['09:00–12:00','13:00–17:00'];
+const SLOT_TIMES  = ['09:00 – 12:00','13:00 – 17:00'];
 
 /* Gaussian Easter algorithm — returns [month (1-based), day] for a given year */
 function easterDate(year) {
@@ -125,7 +125,7 @@ function buildSlotMessage(skipWorkdays, count) {
     d.setDate(d.getDate() + 1);
     if (isWorkday(d)) {
       const label = `${DAY_NAMES[d.getDay()]} ${d.getDate()} ${MONTH_NAMES[d.getMonth()]}`;
-      lines.push(`${SLOT_NUMS[collected]} *${label}* — ${SLOT_TIMES[collected % 2]}`);
+      lines.push(`${SLOT_NUMS[collected]} *${label}*\n    🕐 ${SLOT_TIMES[collected % 2]}`);
       collected++;
     }
   }
