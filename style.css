@@ -619,7 +619,8 @@ html, body {
   display: flex;
   align-items: flex-end;
   gap: 8px;
-  padding: 8px 10px calc(var(--safe-bottom) + 8px);
+  padding: 8px 10px 8px;
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
   background: #f0f0f0;
   border-top: none;
   flex-shrink: 0;
