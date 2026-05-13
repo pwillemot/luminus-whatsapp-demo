@@ -25,15 +25,24 @@
 
   <!-- notification banner -->
   <div class="ls-notification" id="ls-notification">
-    <div class="ls-notif-header">
-      <div class="ls-notif-app-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-      </div>
-      <span class="ls-notif-app-name">WhatsApp</span>
-      <span class="ls-notif-time" id="ls-notif-time"></span>
+    <!-- avatar -->
+    <div class="ls-notif-avatar">
+      <img src="sarah-avatar.jpg" alt="Sarah" onerror="this.style.display='none';this.parentElement.classList.add('ls-notif-avatar-fallback')"/>
     </div>
-    <div class="ls-notif-sender">Sarah - Luminus ⚡</div>
-    <div class="ls-notif-body">Hi Marie! Your appointment with our EV specialist is planned for tomorrow at 10:00. See you soon! ⚡</div>
+    <!-- content -->
+    <div class="ls-notif-content">
+      <div class="ls-notif-header">
+        <div class="ls-notif-app-row">
+          <div class="ls-notif-app-icon">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+          </div>
+          <span class="ls-notif-app-name">WhatsApp</span>
+        </div>
+        <span class="ls-notif-time" id="ls-notif-time">now</span>
+      </div>
+      <div class="ls-notif-sender">Sarah - Luminus ⚡</div>
+      <div class="ls-notif-body">Hi Marie! Your appointment with our EV specialist is planned for tomorrow at 10:00. See you soon! ⚡</div>
+    </div>
   </div>
 
   <!-- bottom row -->
