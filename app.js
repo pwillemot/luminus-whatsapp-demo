@@ -111,6 +111,8 @@ function isWorkday(d) {
   return d.getDay() > 0 && d.getDay() < 6 && !isHoliday(d);
 }
 
+const allSlots = [];
+
 function buildSlotMessage(skipWorkdays, count) {
   const d = new Date();
   d.setHours(0, 0, 0, 0);
@@ -125,11 +127,19 @@ function buildSlotMessage(skipWorkdays, count) {
     d.setDate(d.getDate() + 1);
     if (isWorkday(d)) {
       const label = `${DAY_NAMES[d.getDay()]} ${d.getDate()} ${MONTH_NAMES[d.getMonth()]}`;
-      lines.push(`${SLOT_NUMS[collected]} *${label}*\n    🕐 ${SLOT_TIMES[collected % 2]}`);
+      const time = SLOT_TIMES[collected % 2];
+      allSlots.push({ label, time });
+      lines.push(`${SLOT_NUMS[collected]} *${label}*\n    🕐 ${time}`);
       collected++;
     }
   }
   return lines.join('\n');
+}
+
+function getChosenSlot(userText) {
+  const n = parseInt(userText.trim(), 10);
+  if (n >= 1 && n <= allSlots.length) return allSlots[n - 1];
+  return null;
 }
 
 const SCRIPT = [
@@ -138,7 +148,7 @@ const SCRIPT = [
   { agent: `Great news — I found a few openings! Just reply with the number of your preferred slot:\n\n${buildSlotMessage(0, 5)}` },
   { agent: "No problem at all, Marie! Let me search for more available slots further out…", autoNext: true },
   { agent: `I found some new openings for the following week! Just reply with the number of your preferred slot:\n\n${buildSlotMessage(5, 5)}` },
-  { agent: "Your installation is now rescheduled.🎉 Our technician will be at your home during the selected time slot. You'll receive a confirmation by email shortly.\n\nIs there anything else I can help you with?" },
+  { agent: "Your installation is now rescheduled 🎉 Our technician will be at your home on *{slot}*. You'll receive a confirmation by email shortly.\n\nIs there anything else I can help you with?" },
   { agent: "Thank you for choosing Luminus — see you soon! ⚡" },
 ];
 
@@ -146,6 +156,7 @@ let scriptIndex = 0;
 let capturedFirstName = '';
 let capturedLastName  = '';
 let capturedEmail     = '';
+let capturedSlot      = null;
 let conversationDone  = false;
 let agentTurn = false;
 
@@ -173,7 +184,10 @@ function now() {
 }
 
 function fillName(text) {
-  return text.replace(/\{name\}/g, capturedFirstName || '');
+  const slotLabel = capturedSlot ? `${capturedSlot.label}\n    🕐 ${capturedSlot.time}` : '';
+  return text
+    .replace(/\{name\}/g, capturedFirstName || '')
+    .replace(/\{slot\}/g, slotLabel);
 }
 
 function formatText(raw) {
@@ -310,6 +324,11 @@ function handleSend() {
   if (step && step.capture === 'firstName') capturedFirstName = text;
   else if (step && step.capture === 'lastName')  capturedLastName  = text;
   else if (step && step.capture === 'email')     capturedEmail     = text;
+  // capture chosen slot when replying to either slot list
+  if (scriptIndex === 2 || scriptIndex === 4) {
+    const chosen = getChosenSlot(text);
+    if (chosen) capturedSlot = chosen;
+  }
 
   addBubble(text, 'outgoing', now(), true);
   setInputEnabled(false);
