@@ -619,11 +619,11 @@ html, body {
   display: flex;
   align-items: flex-end;
   gap: 8px;
-  padding: 8px 10px 8px;
-  padding-bottom: max(8px, env(safe-area-inset-bottom));
+  padding: 8px 10px;
   background: #f0f0f0;
   border-top: none;
   flex-shrink: 0;
+  transition: padding-bottom 0.1s;
 }
 .wa-input-side-btn {
   width: 36px; height: 36px;

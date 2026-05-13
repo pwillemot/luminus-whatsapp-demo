@@ -1,5 +1,18 @@
 'use strict';
 
+/* ── iOS keyboard fix: push input bar up when keyboard opens ── */
+if (window.visualViewport) {
+  const inputBar = document.getElementById('input-bar');
+  function onViewportChange() {
+    const keyboardHeight = window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop;
+    if (inputBar) {
+      inputBar.style.paddingBottom = keyboardHeight > 0 ? keyboardHeight + 8 + 'px' : '';
+    }
+  }
+  window.visualViewport.addEventListener('resize', onViewportChange);
+  window.visualViewport.addEventListener('scroll', onViewportChange);
+}
+
 /* ── Lock screen ── */
 const DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -125,13 +138,8 @@ const SCRIPT = [
   { agent: `Great news — I found a few openings! Just reply with the number of your preferred slot:\n\n${buildSlotMessage(0, 5)}` },
   { agent: "No problem at all, Marie! Let me search for more available slots further out…", autoNext: true },
   { agent: `I found some new openings for the following week! Just reply with the number of your preferred slot:\n\n${buildSlotMessage(5, 5)}` },
-  { agent: "Perfect choice! 🎉 Your installation is now rescheduled. Our technician will be at your home during the selected time slot. You'll receive a confirmation by email shortly.\n\nIs there anything else I can help you with?" },
-  { agent: "We offer a range of smart energy solutions perfect for Brussels residents:\n\n🔋 *EV charging* — charge your electric vehicle at home, fast and smart.\n☀️ *Solar panels* — generate your own clean energy.\n🌡️ *Heat pumps* — efficient heating and cooling.\n\nSince you are interested in EV solutions, {name}, shall I show you our home EV charging packages?" },
-  { agent: "Great! ⚡ Here are our three EV charging packages:\n\n1️⃣ *Basic Pack* — From €299\nPortable charging cable · No installation needed\n\n2️⃣ *Comfort Pack* — From €799\nWallbox Pulsar Max · Smart home charging up to 11kW\n\n3️⃣ *Smart Pack* — From €1,199\nWallbox Pulsar Pro · 22kW + solar integration + billing\n\nWhich package interests you most?" },
-  { agent: "Excellent pick! 🎉 To get you the best tailored quote and walk you through the installation, I would love to set up a free 30-minute video consultation with one of our Luminus EV specialists. Would you like to book a time that works for you?" },
-  { agent: "Perfect — let me register your details so we can send the calendar invite. Could you give me your last name, {name}?", capture: 'lastName' },
-  { agent: "Thank you! And what is the best email address to send the calendar invite to?", capture: 'email' },
-  { agent: "All done, {name}! 🎉 Your consultation is confirmed and a calendar invite is on its way to your inbox.\n\nOur EV specialist is looking forward to meeting you and helping you find the perfect charging solution for your home.\n\nThank you for choosing Luminus — see you soon! ⚡" }
+  { agent: "Your installation is now rescheduled.🎉 Our technician will be at your home during the selected time slot. You'll receive a confirmation by email shortly.\n\nIs there anything else I can help you with?" },
+  { agent: "Thank you for choosing Luminus — see you soon! ⚡" },
 ];
 
 let scriptIndex = 0;
