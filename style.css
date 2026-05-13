@@ -119,12 +119,11 @@
 .ls-notif-avatar-fallback::after { content: 'S'; font-size: 18px; font-weight: 700; color: #fff; }
 .ls-notif-wa-badge {
   position: absolute;
-  bottom: -1px; right: -2px;
-  width: 18px; height: 18px;
-  background: #25d366;
-  border-radius: 50%;
-  border: 2px solid rgba(210,210,220,0.72);
-  display: flex; align-items: center; justify-content: center;
+  bottom: -2px; right: -3px;
+  width: 20px; height: 20px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1.5px rgba(210,210,220,0.72);
 }
 /* content column */
 .ls-notif-content { flex: 1; min-width: 0; }
