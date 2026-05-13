@@ -121,9 +121,6 @@
   position: absolute;
   bottom: -2px; right: -3px;
   width: 20px; height: 20px;
-  border-radius: 5px;
-  overflow: hidden;
-  background: #fff;
 }
 /* content column */
 .ls-notif-content { flex: 1; min-width: 0; }
