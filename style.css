@@ -156,8 +156,8 @@
 .ls-notif-sender {
   font-size: 14px;
   font-weight: 700;
-  color: #fff;
-  margin-top: -2px;
+  color: #000;
+  margin-top: -8px;
   margin-bottom: 1px;
   white-space: nowrap;
   overflow: hidden;
