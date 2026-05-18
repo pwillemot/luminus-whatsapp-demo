@@ -62,12 +62,13 @@
   pointer-events: none;
 }
 .ls-date {
-  font-size: 20px;
-  font-weight: 400;
-  color: rgba(255,255,255,0.85);
-  letter-spacing: 0.3px;
-  margin-bottom: 0;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  font-size: 52px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  text-align: center;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.35);
 }
 .ls-time {
   font-size: 92px;
