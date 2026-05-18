@@ -14,18 +14,17 @@ if (window.visualViewport) {
 }
 
 /* ── Lock screen ── */
-const DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 function updateLockClock() {
   const d = new Date();
-  const lsTime = document.getElementById('ls-time');
   const lsDate = document.getElementById('ls-date');
-  if (!lsTime) return;
-  const hh = String(d.getHours()).padStart(2, '0');
-  const mm = String(d.getMinutes()).padStart(2, '0');
-  lsTime.textContent = `${hh}:${mm}`;
-  lsDate.textContent = `${DAYS[d.getDay()]} ${d.getDate()}`;
+  if (!lsDate) return;
+  const day  = String(d.getDate()).padStart(2, '0');
+  const mon  = String(d.getMonth() + 1).padStart(2, '0');
+  const year = d.getFullYear();
+  lsDate.textContent = `${DAYS[d.getDay()]} ${day}/${mon}/${year}`;
 }
 
 updateLockClock();
