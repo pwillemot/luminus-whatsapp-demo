@@ -50,11 +50,11 @@
 
 #screen-lock { cursor: pointer; user-select: none; }
 
-/* clock */
+/* date */
 .ls-clock-area {
   position: absolute;
   z-index: 2;
-  top: 18%;
+  top: calc(env(safe-area-inset-top, 44px) + 16px);
   left: 0; right: 0;
   display: flex;
   flex-direction: column;
