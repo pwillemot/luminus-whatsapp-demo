@@ -24,7 +24,7 @@ function updateLockClock() {
   const day  = String(d.getDate()).padStart(2, '0');
   const mon  = String(d.getMonth() + 1).padStart(2, '0');
   const year = d.getFullYear();
-  lsDate.innerHTML = `${DAYS[d.getDay()]}<br>${day}/${mon}/${year}`;
+  lsDate.innerHTML = `${DAYS[d.getDay()]}<br><br>${day} ${MONTHS[d.getMonth()]}`;
 }
 
 updateLockClock();
